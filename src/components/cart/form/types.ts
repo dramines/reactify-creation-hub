@@ -7,27 +7,20 @@ export const userFormSchema = z.object({
   lastName: z.string()
     .min(2, "Le nom doit contenir au moins 2 caractères")
     .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le nom ne doit contenir que des lettres"),
-  phone: z.string(),
+  phone: z.string()
+    .min(10, "Numéro de téléphone invalide")
+    .regex(/^[0-9+\s()-]+$/, "Format de numéro invalide"),
   email: z.string()
-    .email("Format d'email invalide"),
+    .email("Format d'email invalide")
+    .min(5, "Email invalide"),
   address: z.string()
     .min(5, "L'adresse doit contenir au moins 5 caractères"),
-  country: z.string(),
-  zipCode: z.string(),
+  country: z.string()
+    .min(2, "Le pays doit contenir au moins 2 caractères")
+    .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le pays ne doit contenir que des lettres"),
+  zipCode: z.string()
+    .min(5, "Code postal invalide")
+    .regex(/^[0-9]+$/, "Le code postal ne doit contenir que des chiffres"),
 });
 
 export type UserFormData = z.infer<typeof userFormSchema>;
-
-export const countries = [
-  "France", "Belgique", "Suisse", "Canada", "Luxembourg", "Monaco", 
-  "Allemagne", "Espagne", "Italie", "Royaume-Uni", "Pays-Bas", 
-  "Portugal", "Irlande", "Autriche", "Danemark", "Suède", "Norvège", 
-  "Finlande", "Grèce", "Pologne", "République tchèque", "Hongrie", 
-  "Roumanie", "Bulgarie", "Croatie", "Slovénie", "Slovaquie", 
-  "Estonie", "Lettonie", "Lituanie", "Malte", "Chypre", "Maroc", 
-  "Tunisie", "Algérie", "Sénégal", "Côte d'Ivoire", "Mali", 
-  "Burkina Faso", "Cameroun", "Congo", "Madagascar", "Maurice",
-  "États-Unis", "Mexique", "Brésil", "Argentine", "Chili", 
-  "Colombie", "Pérou", "Venezuela", "Japon", "Chine", "Corée du Sud",
-  "Inde", "Australie", "Nouvelle-Zélande"
-];
