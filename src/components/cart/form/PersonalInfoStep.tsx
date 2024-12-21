@@ -21,7 +21,7 @@ const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
               <Input
                 {...field}
                 placeholder="Entrez votre prénom"
-                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100]"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
               />
             </FormControl>
             <FormMessage className="text-red-500" />
@@ -38,7 +38,7 @@ const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
               <Input
                 {...field}
                 placeholder="Entrez votre nom"
-                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100]"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
               />
             </FormControl>
             <FormMessage className="text-red-500" />

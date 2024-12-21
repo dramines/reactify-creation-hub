@@ -20,7 +20,7 @@ const ContactStep = ({ form }: ContactStepProps) => {
             <FormControl>
               <Input
                 {...field}
-                className="border-gray-300 focus:border-[#700100] focus:ring-[#700100] bg-white"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
                 placeholder="Entrez votre numéro de téléphone"
               />
             </FormControl>
@@ -38,7 +38,7 @@ const ContactStep = ({ form }: ContactStepProps) => {
               <Input
                 {...field}
                 type="email"
-                className="border-gray-300 focus:border-[#700100] focus:ring-[#700100] bg-white"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
                 placeholder="Entrez votre email"
               />
             </FormControl>

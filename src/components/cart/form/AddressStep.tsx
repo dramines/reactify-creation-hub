@@ -20,7 +20,7 @@ const AddressStep = ({ form }: AddressStepProps) => {
             <FormControl>
               <Input
                 {...field}
-                className="border-gray-300 focus:border-[#700100] focus:ring-[#700100] bg-white"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
                 placeholder="Entrez votre adresse"
               />
             </FormControl>
@@ -37,7 +37,7 @@ const AddressStep = ({ form }: AddressStepProps) => {
             <FormControl>
               <Input
                 {...field}
-                className="border-gray-300 focus:border-[#700100] focus:ring-[#700100] bg-white"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
                 placeholder="Entrez votre pays"
               />
             </FormControl>
@@ -54,7 +54,7 @@ const AddressStep = ({ form }: AddressStepProps) => {
             <FormControl>
               <Input
                 {...field}
-                className="border-gray-300 focus:border-[#700100] focus:ring-[#700100] bg-white"
+                className="bg-white border-gray-300 focus:border-[#700100] focus:ring-[#700100] text-gray-900"
                 placeholder="Entrez votre code postal"
               />
             </FormControl>
