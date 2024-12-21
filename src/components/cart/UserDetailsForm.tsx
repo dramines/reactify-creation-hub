@@ -22,16 +22,19 @@ const steps = [
     title: "Informations Personnelles",
     description: "Vos coordonnées de base",
     icon: User,
+    fields: ['firstName', 'lastName'] as const,
   },
   {
     title: "Contact",
     description: "Comment vous joindre",
     icon: Phone,
+    fields: ['phone', 'email'] as const,
   },
   {
     title: "Adresse",
     description: "Où livrer votre commande",
     icon: MapPin,
+    fields: ['address', 'country', 'zipCode'] as const,
   },
 ];
 
@@ -49,34 +52,35 @@ const UserDetailsForm = ({ onComplete, initialData }: UserDetailsFormProps) => {
       country: initialData?.country || "",
       zipCode: initialData?.zipCode || "",
     },
+    mode: "onChange",
   });
 
   const onSubmit = async (values: UserFormData) => {
-    const currentStepFields = {
-      0: ['firstName', 'lastName'],
-      1: ['phone', 'email'],
-      2: ['address', 'country', 'zipCode'],
-    }[currentStep];
+    const currentFields = steps[currentStep].fields;
+    
+    try {
+      const stepIsValid = await form.trigger(currentFields);
 
-    const stepIsValid = await form.trigger(currentStepFields as any);
-
-    if (stepIsValid) {
-      if (currentStep < steps.length - 1) {
-        setCurrentStep(currentStep + 1);
-      } else {
-        saveUserDetails(values as UserDetails);
-        onComplete(values as UserDetails);
-        toast({
-          title: "Détails sauvegardés",
-          description: "Vos informations ont été enregistrées avec succès",
-          className: "bg-red-50 border-red-200",
-          style: {
-            backgroundColor: '#700100',
-            color: 'white',
-            border: '1px solid #590000',
-          },
-        });
+      if (stepIsValid) {
+        if (currentStep < steps.length - 1) {
+          setCurrentStep(currentStep + 1);
+        } else {
+          saveUserDetails(values as UserDetails);
+          onComplete(values as UserDetails);
+          toast({
+            title: "Détails sauvegardés",
+            description: "Vos informations ont été enregistrées avec succès",
+            className: "bg-red-50 border-red-200",
+            style: {
+              backgroundColor: '#700100',
+              color: 'white',
+              border: '1px solid #590000',
+            },
+          });
+        }
       }
+    } catch (error) {
+      console.error("Form validation error:", error);
     }
   };
 
