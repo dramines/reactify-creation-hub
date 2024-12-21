@@ -34,6 +34,7 @@ const AddressStep = ({ form }: AddressStepProps) => {
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
         name="country"
@@ -59,7 +60,7 @@ const AddressStep = ({ form }: AddressStepProps) => {
                 <Command>
                   <CommandInput placeholder="Rechercher un pays..." />
                   <CommandEmpty>Aucun pays trouvé.</CommandEmpty>
-                  <CommandGroup className="max-h-[300px] overflow-y-auto">
+                  <CommandGroup>
                     {countries.map((country) => (
                       <CommandItem
                         key={country}
@@ -69,13 +70,13 @@ const AddressStep = ({ form }: AddressStepProps) => {
                           setOpen(false);
                         }}
                       >
-                        {country}
                         <Check
                           className={cn(
-                            "ml-auto h-4 w-4",
+                            "mr-2 h-4 w-4",
                             field.value === country ? "opacity-100" : "opacity-0"
                           )}
                         />
+                        {country}
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -86,6 +87,7 @@ const AddressStep = ({ form }: AddressStepProps) => {
           </FormItem>
         )}
       />
+
       <FormField
         control={form.control}
         name="zipCode"
