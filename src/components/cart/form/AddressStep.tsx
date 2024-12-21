@@ -3,13 +3,6 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from 'react-hook-form';
 import { UserFormData, countries } from './types';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -51,43 +44,38 @@ const AddressStep = ({ form }: AddressStepProps) => {
               <PopoverTrigger asChild>
                 <FormControl>
                   <button
+                    type="button"
                     className={cn(
                       "w-full flex h-10 items-center justify-between rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#700100] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
                       !field.value && "text-muted-foreground"
                     )}
                   >
-                    {field.value
-                      ? countries.find(
-                          (country) => country === field.value
-                        )
-                      : "Sélectionnez un pays"}
+                    {field.value || "Sélectionnez un pays"}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </button>
                 </FormControl>
               </PopoverTrigger>
-              <PopoverContent className="w-[400px] p-0">
+              <PopoverContent className="w-[400px] p-0" align="start">
                 <Command>
-                  <CommandInput placeholder="Rechercher un pays..." className="h-9" />
+                  <CommandInput placeholder="Rechercher un pays..." />
                   <CommandEmpty>Aucun pays trouvé.</CommandEmpty>
-                  <CommandGroup className="max-h-[300px] overflow-auto">
+                  <CommandGroup className="max-h-[300px] overflow-y-auto">
                     {countries.map((country) => (
                       <CommandItem
-                        value={country}
                         key={country}
+                        value={country}
                         onSelect={() => {
                           form.setValue("country", country);
                           setOpen(false);
                         }}
                       >
+                        {country}
                         <Check
                           className={cn(
-                            "mr-2 h-4 w-4",
-                            country === field.value
-                              ? "opacity-100"
-                              : "opacity-0"
+                            "ml-auto h-4 w-4",
+                            field.value === country ? "opacity-100" : "opacity-0"
                           )}
                         />
-                        {country}
                       </CommandItem>
                     ))}
                   </CommandGroup>
