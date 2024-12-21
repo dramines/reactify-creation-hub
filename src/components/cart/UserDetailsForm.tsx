@@ -52,35 +52,41 @@ const UserDetailsForm = ({ onComplete, initialData }: UserDetailsFormProps) => {
       country: initialData?.country || "",
       zipCode: initialData?.zipCode || "",
     },
-    mode: "onChange",
+    mode: "all",
   });
 
-  const onSubmit = async (values: UserFormData) => {
+  const handleNextStep = async () => {
     const currentFields = steps[currentStep].fields;
+    const values = form.getValues();
     
-    try {
-      const stepIsValid = await form.trigger(currentFields);
-
-      if (stepIsValid) {
-        if (currentStep < steps.length - 1) {
-          setCurrentStep(currentStep + 1);
-        } else {
-          saveUserDetails(values as UserDetails);
-          onComplete(values as UserDetails);
-          toast({
-            title: "Détails sauvegardés",
-            description: "Vos informations ont été enregistrées avec succès",
-            className: "bg-red-50 border-red-200",
-            style: {
-              backgroundColor: '#700100',
-              color: 'white',
-              border: '1px solid #590000',
-            },
-          });
-        }
+    // Check if current step fields are filled
+    const isStepValid = currentFields.every(field => values[field] && values[field].trim() !== '');
+    
+    if (isStepValid) {
+      if (currentStep < steps.length - 1) {
+        setCurrentStep(prev => prev + 1);
+      } else {
+        // Final step submission
+        const allValues = form.getValues();
+        saveUserDetails(allValues as UserDetails);
+        onComplete(allValues as UserDetails);
+        toast({
+          title: "Détails sauvegardés",
+          description: "Vos informations ont été enregistrées avec succès",
+          className: "bg-red-50 border-red-200",
+          style: {
+            backgroundColor: '#700100',
+            color: 'white',
+            border: '1px solid #590000',
+          },
+        });
       }
-    } catch (error) {
-      console.error("Form validation error:", error);
+    } else {
+      toast({
+        title: "Champs requis",
+        description: "Veuillez remplir tous les champs obligatoires",
+        variant: "destructive",
+      });
     }
   };
 
@@ -115,7 +121,7 @@ const UserDetailsForm = ({ onComplete, initialData }: UserDetailsFormProps) => {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={(e) => { e.preventDefault(); handleNextStep(); }} className="space-y-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
