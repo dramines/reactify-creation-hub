@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ mobile = false }) => {
     : [];
 
   return (
-    <div className={`relative ${!mobile ? 'flex-1 max-w-2xl hidden md:block' : ''}`}>
+    <div className={`relative ${!mobile ? 'flex-1 max-w-[80%] mx-auto hidden md:block' : 'w-[80%] mx-auto'}`}>
       <div className="relative">
         <Input
           type="text"
